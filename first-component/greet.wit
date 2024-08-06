@@ -1,0 +1,10 @@
+//      namespace:package
+package finfalter:courtesy@0.1.0;
+
+interface greeting {
+    greet: func(in: string) -> string;
+}
+
+world courtesy {
+    export greeting;
+}
