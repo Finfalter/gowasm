@@ -2,7 +2,6 @@
 
 clear
 
-rm -rf gen
 rm *.wasm
 
 # Check if an argument is provided
@@ -42,16 +41,15 @@ wit-bindgen tiny-go ./read.wit --world discovery --out-dir=gen
 # build for target 'wasi'
 tinygo build -o reader.wasm -target=wasi read.go
 
-# embed WIT
+# # embed WIT
 wasm-tools component embed --world discovery ./read.wit reader.wasm -o reader.embed.wasm
 
-# create component
+# # create component
 export COMPONENT_ADAPTER_REACTOR=binaries/wasi_snapshot_preview1.reactor.wasm
 wasm-tools component new -o reader.component.wasm --adapt wasi_snapshot_preview1="$COMPONENT_ADAPTER_REACTOR" reader.embed.wasm
 
 # virtualize component
-wasi-virt reader.component.wasm --mount /=./ -o reader.wasm
-# wasi-virt reader.component.wasm --preopen /=./ -o reader.wasm
+wasi-virt reader.component.wasm --mount /data=./ -o reader.wasm
 
 wasm-tools component wit reader.wasm
 
@@ -60,6 +58,6 @@ cp ./reader.wasm $1/reader.wasm
 pushd $1
 echo
 export WASMTIME_DEBUG=wasmtime_wasi=trace
-cargo run 
+cargo run --release
 echo
 popd

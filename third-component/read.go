@@ -12,7 +12,7 @@ type ReaderImpl struct {
 
 func (i ReaderImpl) Read(anything string) string {
 	// // Open the current directory
-	dir, err := os.Open("/")
+	dir, err := os.Open("/data")
 	if err != nil {
 		return fmt.Sprintf("Could not open fs: %v", err)
 	}
