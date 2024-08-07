@@ -18,6 +18,24 @@ if [ ! -d "$1" ]; then
     exit 1
 fi
 
+# validate preconditions
+check_command() {
+   if command -v "$1" >/dev/null 2>&1; then
+      echo -e "\e\t[32m\u2714 $1 detected\e[0m"
+   else
+      echo -e "\e\t[31m\u2718 $1 is not installed or not in your PATH\e[0m"
+      exit 1
+   fi
+}
+
+echo -e "Evaluating pre-conditions .."
+check_command wit-bindgen
+check_command tinygo
+check_command wasm-tools
+check_command wasi-virt
+check_command rustc
+echo
+
 # generate bindings
 wit-bindgen tiny-go ./read.wit --world discovery --out-dir=gen
 
