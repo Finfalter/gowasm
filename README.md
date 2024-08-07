@@ -15,3 +15,6 @@ Demonstrates how to use target `wasip2` and how to access the filesystem with __
 
 Tries to create a WASM component which accesses the filesystem in order to read out a file.
 Meant to be run by a host like [componenthost](https://github.com/Finfalter/componenthost).
+
+It is recommended to clone __componenthost__ first, e.g. to *"/home/you/componenthost"* and
+then build and run __third-component__ like *"./third-component/scripts/build.sh /home/you/componenthost"*.

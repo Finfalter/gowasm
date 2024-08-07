@@ -10,7 +10,7 @@ import (
 type ReaderImpl struct {
 }
 
-func (i ReaderImpl) Read() string {
+func (i ReaderImpl) Read(anything string) string {
 	// // Open the current directory
 	dir, err := os.Open("/")
 	if err != nil {
