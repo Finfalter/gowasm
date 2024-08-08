@@ -49,8 +49,11 @@ export COMPONENT_ADAPTER_REACTOR=binaries/wasi_snapshot_preview1.reactor.wasm
 wasm-tools component new -o reader.component.wasm --adapt wasi_snapshot_preview1="$COMPONENT_ADAPTER_REACTOR" reader.embed.wasm
 
 # virtualize component
-wasi-virt reader.component.wasm --mount /data=./ -o reader.wasm
+echo -e "Virtualizing .."
+# wasi-virt reader.component.wasm --mount /data=./ -o reader.wasm
+wasi-virt reader.component.wasm --preopen /data=./ -o reader.wasm
 
+echo -e "\nResult .."
 wasm-tools component wit reader.wasm
 
 cp ./reader.wasm $1/reader.wasm
